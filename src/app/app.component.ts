@@ -7,11 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   
-  title = 'my-app';
+  events: string[];
+  opened: boolean;
 
   constructor() { 
+    this.events = [];
+    this.opened = false;
   }
 
   ngOnInit(): void {
   }
+
 }
