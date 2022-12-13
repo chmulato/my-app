@@ -9,7 +9,7 @@
                 <mat-list-item (click)="sidenav.toggle()">
                     <mat-icon>home</mat-icon>
                     <span class="ml-15">
-                        <a href="/">Home</a>
+                        <a [routerLink]="['/']">Home</a>
                     </span>
                 </mat-list-item>
                 
@@ -18,7 +18,7 @@
                 <mat-list-item (click)="sidenav.toggle()">
                     <mat-icon>category</mat-icon>
                     <span class="ml-15">
-                        <a href="/categoria">Category</a>
+                        <a [routerLink]="['categoria']">Category</a>
                     </span>
                 </mat-list-item>
               </mat-list>
