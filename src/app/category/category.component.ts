@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { CategoryEditComponent } from '../category-edit/category-edit.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import { Category } from '../model/category';
 
@@ -28,14 +29,24 @@ export class CategoryComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  editCategory(category: Category) {
-    console.log('Edit category clicked.');
+  editCategory(inputCategory: Category) {
+
+    this.dialog.open(CategoryEditComponent, { disableClose: false, 
+      data: { editableCategory: inputCategory } }).afterClosed().subscribe(
+      resp => {
+        if (resp) {
+          console.log('Categoria editada com sucesso!');
+        } else {
+          console.log('Categoria não editada!');
+        }
+      }
+    )
   }
 
   deleteCategory(category: Category) {
 
     this.dialog.open(DialogComponent, { disableClose: false, 
-      data: { dialogMessage: '', leftButtonLabel: '', rightButtonLabel: '' } }).afterClosed().subscribe(
+      data: { dialogMessage: 'Você tem certeza que deseja apagar a Categoria?', leftButton: 'Cancelar', rightButton: 'Sim' } }).afterClosed().subscribe(
       resp => {
         if (resp) {
           console.log('Categoria apagada com sucesso!');

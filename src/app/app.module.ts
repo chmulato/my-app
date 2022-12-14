@@ -8,10 +8,12 @@ import { CategoryComponent } from './category/category.component';
 import { HeaderComponent } from './header/header.component';
 import { MaterialModule } from './material.module';
 import { FooterComponent } from './footer/footer.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { CategoryEditComponent } from './category-edit/category-edit.component';
+import { CategoryFormComponent } from './category-form/category-form.component';
 
 @NgModule({
   declarations: [
@@ -21,14 +23,17 @@ import { DialogComponent } from './dialog/dialog.component';
     FooterComponent,
     HomeComponent,
     PageNotFoundComponent,
-    DialogComponent
+    DialogComponent,
+    CategoryEditComponent,
+    CategoryFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
