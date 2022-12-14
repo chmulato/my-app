@@ -1,0 +1,9 @@
+.flx-center-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flx-evly {
+    justify-content: space-evenly;
+}

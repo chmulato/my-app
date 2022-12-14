@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 import { Category } from '../model/category';
 
 export const CATEGORY_DATA = [
@@ -19,7 +21,7 @@ export class CategoryComponent implements OnInit {
   
   dataSource : Category[];
 
-  constructor() { 
+  constructor(private dialog: MatDialog) { 
     this.dataSource = CATEGORY_DATA;
   }
 
@@ -31,7 +33,17 @@ export class CategoryComponent implements OnInit {
   }
 
   deleteCategory(category: Category) {
-    console.log('Delete category clicked.');
+
+    this.dialog.open(DialogComponent, { disableClose: true, 
+      data: { dialogMessage: 'Deseja apagar a Categoria selecionada?', leftButtonLabel: 'Não', rightButtonLabel: 'Sim' } }).afterClosed().subscribe(
+      resp => {
+        if (resp) {
+          console.log('Categoria apagada com sucesso!');
+        } else {
+          console.log('Categoria não apagada!');
+        }
+      }
+    )
   }
 
   createNewCategory() {
