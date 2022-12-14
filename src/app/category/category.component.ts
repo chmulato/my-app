@@ -35,7 +35,7 @@ export class CategoryComponent implements OnInit {
   deleteCategory(category: Category) {
 
     this.dialog.open(DialogComponent, { disableClose: true, 
-      data: { dialogMessage: 'Deseja apagar a Categoria selecionada?', leftButtonLabel: 'Não', rightButtonLabel: 'Sim' } }).afterClosed().subscribe(
+      data: { dialogMessage: '', leftButtonLabel: '', rightButtonLabel: '' } }).afterClosed().subscribe(
       resp => {
         if (resp) {
           console.log('Categoria apagada com sucesso!');
