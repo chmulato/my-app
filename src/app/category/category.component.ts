@@ -34,7 +34,7 @@ export class CategoryComponent implements OnInit {
 
   deleteCategory(category: Category) {
 
-    this.dialog.open(DialogComponent, { disableClose: true, 
+    this.dialog.open(DialogComponent, { disableClose: false, 
       data: { dialogMessage: '', leftButtonLabel: '', rightButtonLabel: '' } }).afterClosed().subscribe(
       resp => {
         if (resp) {
