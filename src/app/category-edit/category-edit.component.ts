@@ -9,12 +9,11 @@ import { Category } from '../model/category';
 })
 export class CategoryEditComponent implements OnInit {
 
-  editableCategory: Category;
   actionName: string;
+  editableCategory!: Category;
 
   constructor(private dialogRef: MatDialogRef<CategoryEditComponent>, @Inject(MAT_DIALOG_DATA) dialogData: any) { 
 
-    this.editableCategory = new Category();
     this.actionName = 'Editar';
 
     if(dialogData.editableCategory != null) {

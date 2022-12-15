@@ -30,9 +30,10 @@ export class CategoryComponent implements OnInit {
   }
 
   editCategory(inputCategory: Category) {
+    console.log('edit category clicked');
 
     this.dialog.open(CategoryEditComponent, { disableClose: false, 
-      data: { editableCategory: inputCategory, actionName: 'Editar' } }).afterClosed().subscribe(
+      data: { editableCategory: inputCategory } }).afterClosed().subscribe(
       resp => {
         if (resp) {
           console.log('Categoria editada com sucesso!');
@@ -44,6 +45,7 @@ export class CategoryComponent implements OnInit {
   }
 
   deleteCategory(category: Category) {
+    console.log('delete category clicked');
 
     this.dialog.open(DialogComponent, { disableClose: false, 
       data: { dialogMessage: 'Você tem certeza que deseja apagar a Categoria?', leftButton: 'Cancelar', rightButton: 'Sim' } }).afterClosed().subscribe(
@@ -59,6 +61,17 @@ export class CategoryComponent implements OnInit {
 
   createNewCategory() {
     console.log('Create new category clicked.');
+
+    this.dialog.open(CategoryEditComponent, { disableClose: false,
+      data: { actionName: 'Criar' } }).afterClosed().subscribe(
+      resp => {
+        if (resp) {
+          console.log('Categoria editada com sucesso!');
+        } else {
+          console.log('Categoria não editada!');
+        }
+      }
+    )
   }
 
 }

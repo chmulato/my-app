@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Category } from '../model/category';
 
 @Component({
@@ -9,31 +9,40 @@ import { Category } from '../model/category';
 })
 export class CategoryFormComponent implements OnInit {
 
-  @Input() editableCategory: Category | undefined;
-  @Input() actionName: string;
+  @Input()
+  editableCategory!: Category;
+  @Input()
+  actionName: string;
 
-  @Output() closeModalEventEmitter: EventEmitter<boolean> | undefined;
+  @Output()
+  closeModalEventEmitter!: EventEmitter<boolean>;
   
   categoryForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
-    this.categoryForm = this.formBuilder.group({
-      name: ''
-    });
     this.actionName = 'Editar';
-    this.closeModalEventEmitter = new EventEmitter<boolean>();
+    this.closeModalEventEmitter = new EventEmitter<boolean>;
   }
 
   ngOnInit(): void {
+    if (this.editableCategory) {
+      this.categoryForm = this.formBuilder.group({
+        name: this.editableCategory.name
+      })
+    } else {
+      this.categoryForm = this.formBuilder.group({
+        name: ''
+      })
+    }
   }
 
   cancel() {
     console.log('Cancelar ao clicar!');
-    this.closeModalEventEmitter?.emit(false);
+    this.closeModalEventEmitter.emit(false);
   }
 
   save() {
     console.log('Salvar ao clicar!');
-    this.closeModalEventEmitter?.emit(true);
+    this.closeModalEventEmitter.emit(true);
   }
 }
