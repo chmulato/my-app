@@ -20,10 +20,9 @@ export class CategoryComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'actions'];
   
-  dataSource : Category[];
+  dataSource = CATEGORY_DATA;
 
   constructor(private dialog: MatDialog) { 
-    this.dataSource = CATEGORY_DATA;
   }
 
   ngOnInit(): void {
