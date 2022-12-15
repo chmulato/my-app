@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Category } from '../model/category';
 
 @Component({
@@ -27,11 +27,11 @@ export class CategoryFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.editableCategory) {
       this.categoryForm = this.formBuilder.group({
-        name: this.editableCategory.name
+        name: [this.editableCategory.name, Validators.required]
       })
     } else {
       this.categoryForm = this.formBuilder.group({
-        name: ''
+        name: ['', Validators.required]
       })
     }
   }
