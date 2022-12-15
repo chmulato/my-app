@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { CATEGORY_DATA } from '../category/category.component';
+import { DialogComponent } from '../dialog/dialog.component';
 import { ChecklistItem } from '../model/checklist_item';
 
 export const CHECKLIST_DATA = [
@@ -23,7 +25,7 @@ export class ChecklistComponent implements OnInit {
 
   dataSource = CHECKLIST_DATA;
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -42,5 +44,16 @@ export class ChecklistComponent implements OnInit {
 
   deleteChecklistItem(checklist: ChecklistItem) {
     console.log(`Apagar item ${checklist.guid}`);
+
+    this.dialog.open(DialogComponent, { disableClose: false, data: {
+      dialogMessage: 'Você deseja realmente apagar esta tarefa?', leftButtonLabel: 'Cancelar', rightButtonLabel: 'OK'}
+    }).afterClosed().subscribe(
+      resp => {
+        if (resp) {
+          console.log('Checklist apagado com sucesso!');
+        } else {
+          console.log('Checklist não apagado!');
+        }
+      })
   }
 }

@@ -16,6 +16,10 @@ export class DialogComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { 
 
+      this.dialogMessage = 'Deseja realmente apagar este item?';
+      this.leftButtonLabel = 'Não';
+      this.rightButtonLabel = 'Sim';
+
       if (data.leftButtonLabel != null) {
         this.leftButtonLabel = data.leftButtonLabel;
       }
@@ -26,9 +30,6 @@ export class DialogComponent implements OnInit {
         this.dialogMessage = data.dialogMessage;
       }
 
-      this.dialogMessage = 'Deseja apagar a Categoria selecionada?';
-      this.leftButtonLabel = 'Não';
-      this.rightButtonLabel = 'Sim';
   }
 
   ngOnInit(): void {
