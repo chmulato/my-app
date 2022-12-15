@@ -19,10 +19,10 @@ export class CategoryFormComponent implements OnInit {
   
   categoryForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder) {
     this.actionName = 'Editar';
     this.closeModalEventEmitter = new EventEmitter<boolean>;
-  }
+   }
 
   ngOnInit(): void {
     if (this.editableCategory) {

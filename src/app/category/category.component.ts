@@ -66,9 +66,9 @@ export class CategoryComponent implements OnInit {
       data: { actionName: 'Criar' } }).afterClosed().subscribe(
       resp => {
         if (resp) {
-          console.log('Categoria editada com sucesso!');
+          console.log('Categoria criada com sucesso!');
         } else {
-          console.log('Categoria não editada!');
+          console.log('Categoria não criada!');
         }
       }
     )

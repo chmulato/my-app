@@ -14,8 +14,8 @@
                 <mat-form-field class="w-300">
                     <mat-label>Nome</mat-label>
                     <input matInput placeholder="Nome" formControlName="name" #name />
+                    <mat-error *ngIf="categoryForm.get('name')?.invalid">Nome é obrigatorio!</mat-error>
                 </mat-form-field>
-                <mat-error *ngIf="categoryForm.get('name')?.invalid">Nome é obrigatorio!</mat-error>
             </form>
 
         </mat-card-content>
