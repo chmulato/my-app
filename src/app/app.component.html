@@ -18,7 +18,16 @@
                 <mat-list-item (click)="sidenav.toggle()">
                     <mat-icon>category</mat-icon>
                     <span class="ml-15">
-                        <a [routerLink]="['categoria']">Category</a>
+                        <a [routerLink]="['category']">Category</a>
+                    </span>
+                </mat-list-item>
+                
+                <mat-divider></mat-divider>
+
+                <mat-list-item (click)="sidenav.toggle()">
+                    <mat-icon>checklist</mat-icon>
+                    <span class="ml-15">
+                        <a [routerLink]="['checklist']">Checklist</a>
                     </span>
                 </mat-list-item>
               </mat-list>

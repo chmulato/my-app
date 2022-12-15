@@ -14,6 +14,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { DialogComponent } from './dialog/dialog.component';
 import { CategoryEditComponent } from './category-edit/category-edit.component';
 import { CategoryFormComponent } from './category-form/category-form.component';
+import { ChecklistComponent } from './checklist/checklist.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CategoryFormComponent } from './category-form/category-form.component';
     PageNotFoundComponent,
     DialogComponent,
     CategoryEditComponent,
-    CategoryFormComponent
+    CategoryFormComponent,
+    ChecklistComponent
   ],
   imports: [
     BrowserModule,
