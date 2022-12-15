@@ -16,8 +16,11 @@
                 </ng-container>
               
                 <ng-container matColumnDef="completed">
-                  <th mat-header-cell *matHeaderCellDef> Completado </th>
-                  <td mat-cell *matCellDef="let element"> {{element.completed}} </td>
+                  <th mat-header-cell *matHeaderCellDef> Completar Item </th>
+                  <td mat-cell *matCellDef="let element">
+                    <mat-icon color="primary" *ngIf="!element.completed" (click)="updateCompleteStatus(true)">thumb_up</mat-icon>
+                    <mat-icon color="warn" *ngIf="element.completed" (click)="updateCompleteStatus(false)">thumb_down</mat-icon>
+                </td>
                 </ng-container>
               
                 <ng-container matColumnDef="description">
@@ -27,12 +30,12 @@
               
                 <ng-container matColumnDef="deadline">
                   <th mat-header-cell *matHeaderCellDef> Prazo </th>
-                  <td mat-cell *matCellDef="let element"> {{element.deadline}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.deadline | date: 'MM/dd/yyyy'}} </td>
                 </ng-container>
               
                 <ng-container matColumnDef="postDate">
                     <th mat-header-cell *matHeaderCellDef> Postagem </th>
-                    <td mat-cell *matCellDef="let element"> {{element.postDate}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.postDate | date: 'MM/dd/yyyy'}} </td>
                 </ng-container>
               
                 <ng-container matColumnDef="category">
@@ -42,7 +45,12 @@
               
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef> Ações </th>
-                    <td mat-cell *matCellDef="let element"> </td>
+                    <td mat-cell *matCellDef="let element">
+
+                        <button mat-raised-button color="accent" (click)="updateChecklistItem(element)" class="mr-10">Editar</button>
+                        <button mat-raised-button color="warn" (click)="deleteChecklistItem(element)">Apagar</button>
+
+                    </td>
                 </ng-container>
                 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
