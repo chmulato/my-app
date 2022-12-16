@@ -12,17 +12,16 @@ export class ChecklistEditComponent implements OnInit {
   actionName: string;
   checklistItem!: ChecklistItem;
 
-
-  constructor(private dialogRef: MatDialogRef<ChecklistEditComponent>, @Inject(MAT_DIALOG_DATA) dialogData: any) {
+  constructor(private dialogRef: MatDialogRef<ChecklistEditComponent>, @Inject(MAT_DIALOG_DATA) data: any) {
     
     this.actionName = 'Editar';
   
-    if(dialogData.checklistItem != null) {
-      this.checklistItem = dialogData.checklistItem; 
+    if(data.updatableChecklistitem != null) {
+      this.checklistItem = data.updatableChecklistitem; 
      }
  
-     if(dialogData.actionName != null) {
-       this.actionName = dialogData.actionName;
+     if(data.actionName != null) {
+       this.actionName = data.actionName;
      }
  }
 
@@ -31,9 +30,7 @@ export class ChecklistEditComponent implements OnInit {
 
   onFormClose($event: any) {
     //TODO handle action - save/cancel
-    if($event) {
-      this.dialogRef.close();
-    } 
+    this.dialogRef.close();
   }
 
 }

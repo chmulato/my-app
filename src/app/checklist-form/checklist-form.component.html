@@ -7,14 +7,41 @@
         </mat-card-header>
 
         <mat-card-content>
-            
+
             <form [formGroup]="checklistForm" #formDirective="ngForm">
-                <div>
+                
+                <div class="flx-clmn">
+
                     <mat-form-field appearance="outline">
                         <mat-label>Descrição</mat-label>
                         <input matInput placeholder="Descrição" type="text" formControlName="description" #description>
-                        <mat-error *ngIf="checklistForm.get('description')?.invalid">Descrição é obrigatoria!</mat-error>    
-                      </mat-form-field>
+                        <mat-error *ngIf="checklistForm.get('description')?.invalid">Descrição é
+                            obrigatoria!</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Categoria</mat-label>
+                        <mat-select formControlName="category">
+                            <mat-option *ngFor="let category of categories" [value]="category">{{ category.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div class="flx-row flx-evenly">
+
+                        <section>
+                            <mat-checkbox formControlName="completed">Completo?</mat-checkbox>
+                        </section>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Prazo</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="deadline">
+                            <mat-hint>DD/MM/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+
+                    </div>
+
                 </div>
             </form>
 

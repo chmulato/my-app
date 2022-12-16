@@ -36,7 +36,7 @@ export class ChecklistFormComponent implements OnInit {
       this.checklistForm = this.formBuilder.group({
         completed: [this.checklistItem.completed, Validators.required],
         description: [this.checklistItem.description, Validators.required],
-        deadline: [this.checklistItem.deadline, Validators.required],
+        deadline: [new Date(this.checklistItem.deadline), Validators.required],
         category: [this.checklistItem.category, Validators.required]
       })
     }
@@ -45,7 +45,7 @@ export class ChecklistFormComponent implements OnInit {
       this.checklistForm = this.formBuilder.group({
         completed: [false, Validators.required],
         description: ['', Validators.required],
-        deadline: [Date.now(), Validators.required],
+        deadline: [new Date(), Validators.required],
         category: [null, Validators.required]
       })
     }

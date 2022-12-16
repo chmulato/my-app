@@ -1,3 +1,17 @@
 .w-450 {
     width: 450px;
 }
+
+.flx-clmn {
+    display: flex;
+    flex-direction: column;
+}
+
+.flx-row {
+  display: flex;
+  flex-direction: row;  
+}
+
+.flx-evenly {
+    justify-content: space-evenly;
+}

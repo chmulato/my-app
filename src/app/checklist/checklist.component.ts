@@ -31,10 +31,6 @@ export class ChecklistComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createNewItem() {
-    console.log('Create a new item of checklist clicado!');
-  }
-
   updateCompleteStatus(status: boolean) {
     console.log(`Status alterado ${status}`);
   }
