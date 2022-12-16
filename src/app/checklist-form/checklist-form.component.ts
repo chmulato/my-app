@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { CATEGORY_DATA } from '../category/category.component';
 import { Category } from '../model/category';
 import { ChecklistItem } from '../model/checklist_item';
+import { CategoryService } from '../service/category.service';
 
 @Component({
   selector: 'app-checklist-form',
@@ -25,13 +25,21 @@ export class ChecklistFormComponent implements OnInit {
 
   checklistForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { 
+  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService) { 
     this.actionName = 'Editar';
     this.formCloseEvent = new EventEmitter<boolean>;
-    this.categories = CATEGORY_DATA;
   }
 
   ngOnInit(): void {
+    this.categoryService.getAllCategories().subscribe(
+      (resp: Category[]) => {
+        this.categories = resp;
+        this.createForm();
+      }
+    );
+  }
+
+  private createForm() {
     if (this.checklistItem) {
       this.checklistForm = this.formBuilder.group({
         completed: [this.checklistItem.completed, Validators.required],
@@ -50,6 +58,7 @@ export class ChecklistFormComponent implements OnInit {
       })
     }
   }
+
 
   private clearForm() {
     this.checklistForm.reset();
