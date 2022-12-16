@@ -10,8 +10,8 @@
 
         <mat-card-content>
 
-            <form [formGroup]="categoryForm">
-                <mat-form-field class="w-300">
+            <form [formGroup]="categoryForm" #formDirective="ngForm">
+                <mat-form-field class="w-300" appearance="outline">
                     <mat-label>Nome</mat-label>
                     <input matInput placeholder="Nome" formControlName="name" #name />
                     <mat-error *ngIf="categoryForm.get('name')?.invalid">Nome é obrigatorio!</mat-error>

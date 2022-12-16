@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Category } from '../model/category';
 
 @Component({
@@ -17,6 +17,8 @@ export class CategoryFormComponent implements OnInit {
   @Output()
   closeModalEventEmitter!: EventEmitter<boolean>;
   
+  @ViewChild(FormGroupDirective) categoryFormGroupDirective!: FormGroupDirective;
+  
   categoryForm!: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
@@ -29,20 +31,28 @@ export class CategoryFormComponent implements OnInit {
       this.categoryForm = this.formBuilder.group({
         name: [this.editableCategory.name, Validators.required]
       })
-    } else {
+    }
+    else
+    {
       this.categoryForm = this.formBuilder.group({
         name: ['', Validators.required]
       })
     }
   }
 
-  cancel() {
-    console.log('Cancelar ao clicar!');
-    this.closeModalEventEmitter.emit(false);
+  private clearForm() {
+    this.categoryForm.reset();
+    this.categoryFormGroupDirective.resetForm();
   }
 
   save() {
     console.log('Salvar ao clicar!');
     this.closeModalEventEmitter.emit(true);
+    this.clearForm();
+  }
+
+  cancel() {
+    console.log('Cancelar ao clicar!');
+    this.closeModalEventEmitter.emit(false);
   }
 }

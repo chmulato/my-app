@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CATEGORY_DATA } from '../category/category.component';
+import { ChecklistEditComponent } from '../checklist-edit/checklist-edit.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import { ChecklistItem } from '../model/checklist_item';
 
@@ -38,8 +39,35 @@ export class ChecklistComponent implements OnInit {
     console.log(`Status alterado ${status}`);
   }
 
-  updateChecklistItem(checklist: ChecklistItem) {
-    console.log(`Atualizar item ${checklist.guid}`);
+  createNewChecklistItem() {
+    console.log('Create new checklist Item clicked.');
+
+    this.dialog.open(ChecklistEditComponent, { disableClose: false,
+      data: { actionName: 'Criar' } }).afterClosed().subscribe(
+      resp => {
+        if (resp) {
+          console.log('Checklist Item criado com sucesso!');
+        } else {
+          console.log('Checklist Item não criado!');
+        }
+      }
+    )
+  }
+
+  updateChecklistItem(checklistItem: ChecklistItem) {
+    console.log(`Atualizar item ${checklistItem.guid}`);
+
+    this.dialog.open(ChecklistEditComponent, { disableClose: false, 
+      data: { updatableChecklistitem: checklistItem, actionName: 'Editar' } })
+      .afterClosed().subscribe(
+      resp => {
+        if (resp) {
+          console.log('Checklist item editado com sucesso!');
+        } else {
+          console.log('Checklist item não editado!');
+        }
+      }
+    )
   }
 
   deleteChecklistItem(checklist: ChecklistItem) {
