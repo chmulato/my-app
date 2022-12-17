@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
@@ -31,6 +32,7 @@ import { NgModule } from '@angular/core';
     MatListModule,
     MatSelectModule,
     MatSidenavModule,
+    MatSnackBarModule,
     MatTableModule,
     MatToolbarModule
   ],
@@ -48,6 +50,7 @@ import { NgModule } from '@angular/core';
     MatListModule,
     MatSelectModule,
     MatSidenavModule,
+    MatSnackBarModule,
     MatTableModule,
     MatToolbarModule
 ]

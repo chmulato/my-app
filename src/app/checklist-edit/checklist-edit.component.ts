@@ -30,7 +30,7 @@ export class ChecklistEditComponent implements OnInit {
 
   onFormClose($event: any) {
     //TODO handle action - save/cancel
-    this.dialogRef.close();
+    this.dialogRef.close($event);
   }
 
 }

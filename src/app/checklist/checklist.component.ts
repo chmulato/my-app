@@ -4,6 +4,7 @@ import { ChecklistEditComponent } from '../checklist-edit/checklist-edit.compone
 import { DialogComponent } from '../dialog/dialog.component';
 import { ChecklistItem } from '../model/checklist_item';
 import { ChecklistService } from '../service/checklist.service';
+import { SnackBarService } from '../service/snack-bar.service';
 
 @Component({
   selector: 'app-checklist',
@@ -16,7 +17,12 @@ export class ChecklistComponent implements OnInit {
 
   dataSource!: ChecklistItem[];
 
-  constructor(private dialog: MatDialog, private checklistService: ChecklistService) { }
+  constructor(
+    private dialog: MatDialog,
+    private checklistService: ChecklistService,
+    private snackBarService: SnackBarService
+    ) {     
+     }
 
   ngOnInit(): void {
     this.checklistService.getAllChecklistItems().subscribe(
@@ -37,7 +43,10 @@ export class ChecklistComponent implements OnInit {
       data: { actionName: 'Criar' } }).afterClosed().subscribe(
       resp => {
         if (resp) {
+          
           console.log('Checklist Item criado com sucesso!');
+          this.snackBarService.showSnackBar('Checklist Item criado com sucesso!', 'OK');
+
         } else {
           console.log('Checklist Item não criado!');
         }
@@ -53,7 +62,10 @@ export class ChecklistComponent implements OnInit {
       .afterClosed().subscribe(
       resp => {
         if (resp) {
+
           console.log('Checklist item editado com sucesso!');
+          this.snackBarService.showSnackBar('Checklist Item editado com sucesso!', 'OK');
+
         } else {
           console.log('Checklist item não editado!');
         }
@@ -69,7 +81,10 @@ export class ChecklistComponent implements OnInit {
     }).afterClosed().subscribe(
       resp => {
         if (resp) {
+
           console.log('Checklist apagado com sucesso!');
+          this.snackBarService.showSnackBar('Checklist Item apagado com sucesso!', 'OK');
+
         } else {
           console.log('Checklist não apagado!');
         }
