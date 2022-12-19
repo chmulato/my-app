@@ -1,23 +1,30 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Category } from '../model/category';
-
-export const CATEGORY_DATA = [
-  { name: 'Educação', guid: 'aaa-bbb-ccc-dddd'},
-  { name: 'Saúde', guid: 'aaa-bbb-ccc-dddd'},
-  { name: 'Trabalho', guid: 'aaa-bbb-ccc-dddd'},
-  { name: 'Outros', guid: 'aaa-bbb-ccc-dddd'}
-];
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   getAllCategories(): Observable<Category[]> {
-    return of(CATEGORY_DATA);
+    return this.httpClient.get<Category[]>(`${environment.apiBaseEndpointUrl}categories`);
+  }
+
+  saveCategory(category: Category): Observable<string> {
+    return this.httpClient.post<string>(`${environment.apiBaseEndpointUrl}categories`, category);
+  }
+
+  updateCategory(category: Category): Observable<void> {
+    return this.httpClient.put<void>(`${environment.apiBaseEndpointUrl}categories`, category);
+  }
+
+  deleteCategory(guid: string): Observable<void> {
+    return this.httpClient.delete<void>(`${environment.apiBaseEndpointUrl}categories/${guid}`);
   }
   
 }
