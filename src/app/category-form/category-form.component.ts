@@ -55,7 +55,7 @@ export class CategoryFormComponent implements OnInit {
 
       if (this.actionName == 'Editar') {
 
-         let updatedCategory = {
+        let updatedCategory = {
           guid: this.editableCategory.guid,
           name: this.categoryForm.value['name']
         };
