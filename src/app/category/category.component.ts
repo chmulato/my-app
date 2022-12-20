@@ -15,34 +15,35 @@ export class CategoryComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'actions'];
   
-  dataSource: Category[] = [];
+  dataSource: Category[];
 
   constructor(
     private dialog: MatDialog,
     private categoryService: CategoryService,
     private snackBarService: SnackBarService
   ) { 
+      this.dataSource = [];
     }
 
   ngOnInit(): void {
-    this.categoryService.getAllCategories().subscribe(
-        (resp: Category[]) => {
-          this.dataSource = resp;
-        }
-    );
+    this.loadAllCategories();
+  }
+
+  private loadAllCategories() {
+    this.categoryService.getAllCategories().subscribe((resp: Category[]) => {
+      this.dataSource = resp;
+      }, (error: any) => {
+        console.log(`Ocorreu um erro ocorreu para chamar a API ${error}`);
+      });
   }
 
   editCategory(inputCategory: Category) {
-    console.log('edit category clicked');
-
     this.dialog.open(CategoryEditComponent, { disableClose: false, 
       data: { editableCategory: inputCategory } }).afterClosed().subscribe(
       resp => {
         if (resp) {
-
-          console.log('Categoria editada com sucesso!');
+          this.loadAllCategories();
           this.snackBarService.showSnackBar('Categoria editada com sucesso!', 'OK');
-
         } else {
           console.log('Categoria não editada!');
         }
@@ -51,39 +52,37 @@ export class CategoryComponent implements OnInit {
   }
 
   deleteCategory(category: Category) {
-    console.log('delete category clicked');
-
     this.dialog.open(DialogComponent, { disableClose: false, 
       data: { dialogMessage: 'Você tem certeza que deseja apagar a Categoria?', leftButtonLabel: 'Cancelar', rightButtonLabel: 'OK' } }).afterClosed().subscribe(
       resp => {
         if (resp) {
-          
-          console.log('Categoria apagada com sucesso!');
-          this.snackBarService.showSnackBar('Categoria apagada com sucesso!', 'OK');
-
+          this.categoryService.deleteCategory(category.guid).subscribe(
+            (resp: any) => {
+              this.loadAllCategories();
+              this.snackBarService.showSnackBar('Categoria apagada com sucesso!', 'OK');
+            }, (err: any) => {
+              this.snackBarService.showSnackBar('Não foi possível apagar a categoria, pois está em uso por um item de checklist!', 'OK');
+            }
+          );
         } else {
           console.log('Categoria não apagada!');
         }
       }
-    )
+    );
   }
 
   createNewCategory() {
-    console.log('Create new category clicked.');
-
     this.dialog.open(CategoryEditComponent, { disableClose: false,
       data: { actionName: 'Criar' } }).afterClosed().subscribe(
       resp => {
         if (resp) {
-          
-          console.log('Categoria criada com sucesso!');
+          this.loadAllCategories();
           this.snackBarService.showSnackBar('Categoria criada com sucesso!', 'OK');
-
         } else {
           console.log('Categoria não criada!');
         }
       }
-    )
+    );
   }
 
 }
