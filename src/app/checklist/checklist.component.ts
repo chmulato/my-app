@@ -15,13 +15,14 @@ export class ChecklistComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'completed', 'description', 'deadline', 'postDate', 'category', 'actions'];
 
-  dataSource!: ChecklistItem[];
+  dataSource: ChecklistItem[];
 
   constructor(
     private dialog: MatDialog,
     private checklistService: ChecklistService,
     private snackBarService: SnackBarService
-    ) {     
+    ) {   
+      this.dataSource = [];  
      }
 
   ngOnInit(): void {

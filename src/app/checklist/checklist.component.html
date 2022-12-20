@@ -8,7 +8,13 @@
 
         <mat-card-content>
 
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
+            <mat-card *ngIf="dataSource.length == 0">
+                <mat-card-content>
+                  Não há registro de checklist.
+                </mat-card-content>
+              </mat-card>
+  
+            <table mat-table *ngIf="dataSource.length > 0" [dataSource]="dataSource" class="mat-elevation-z8 w-100">
 
                 <ng-container matColumnDef="id">
                   <th mat-header-cell *matHeaderCellDef> Id </th>
