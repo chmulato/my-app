@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular
 import { Category } from '../model/category';
 import { ChecklistItem } from '../model/checklist_item';
 import { CategoryService } from '../service/category.service';
+import { ChecklistService } from '../service/checklist.service';
+import { SnackBarService } from '../service/snack-bar.service';
 
 @Component({
   selector: 'app-checklist-form',
@@ -21,11 +23,17 @@ export class ChecklistFormComponent implements OnInit {
 
   @ViewChild(FormGroupDirective) checklistFormGroupDirective!: FormGroupDirective;
 
-  categories!: Category[];
+  categories: Category[];
 
   checklistForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService) { 
+  constructor(
+    private formBuilder: FormBuilder,
+    private categoryService: CategoryService,
+    private checklistService: ChecklistService,
+    private snackbarService: SnackBarService
+  ) { 
+    this.categories = [];
     this.actionName = 'Editar';
     this.formCloseEvent = new EventEmitter<boolean>;
   }
@@ -37,6 +45,12 @@ export class ChecklistFormComponent implements OnInit {
         this.createForm();
       }
     );
+  }
+
+  compareCategories(categoryOne: Category, categoryTwo: Category): boolean {
+    return (categoryOne != null && categoryTwo != null) &&
+           (categoryOne.guid == categoryTwo.guid) &&
+           (categoryOne.name == categoryTwo.name);
   }
 
   private createForm() {
@@ -60,19 +74,45 @@ export class ChecklistFormComponent implements OnInit {
   }
 
 
-  private clearForm() {
-    this.checklistForm.reset();
-    this.checklistFormGroupDirective.resetForm();
-  }
 
   save() {
-    console.log('Salvar ao clicar!');
-    this.formCloseEvent.emit(true);
-    this.clearForm();
+
+    if (this.checklistForm.valid) {
+
+      if (this.actionName == 'Editar') {
+      
+        let updateableItem = {
+          guid: this.checklistItem.guid,
+          completed: this.checklistForm.value['completed'],
+          description: this.checklistForm.value['description'],
+          deadline: this.checklistForm.value['deadline'],
+          category: this.checklistForm.value['category']
+        };
+
+        this.checklistService.updateChecklistItems(updateableItem as any).subscribe(
+          (resp: any) => {
+            this.snackbarService.showSnackBar('Item do checklist atualizado com sucesso!','OK');
+            this.formCloseEvent.emit(true);
+          }, (err: any) => {
+            this.snackbarService.showSnackBar('Erro ao atualizar o Item do checklist. Tente novamente!','OK');
+          }
+        );
+      }
+      else
+      {
+        this.checklistService.saveChecklistItems(this.checklistForm.value).subscribe(
+          (resp: any) => {
+            this.snackbarService.showSnackBar('Item do checklist criado com sucesso!','OK');
+            this.formCloseEvent.emit(true);
+          }, (err: any) => {
+            this.snackbarService.showSnackBar('Erro ao criar o Item do checklist. Tente novamente!','OK');
+          }
+        );
+      }
+    }
   }
 
   cancel() {
-    console.log('Cancelar ao clicar!');
     this.formCloseEvent.emit(false);
   }
 }
