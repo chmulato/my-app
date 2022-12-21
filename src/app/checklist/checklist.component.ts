@@ -43,6 +43,7 @@ export class ChecklistComponent implements OnInit {
     this.checklistService.updateIsCompleteStatus(guid, status).subscribe(
       (resp: any) => {
           this.snackBarService.showSnackBar('Item atualizado com sucesso!', 'OK');
+          this.loadAllItems();
       }, (error: any) => {
         this.snackBarService.showSnackBar('Um erro ocorreu ao atualizar o item. Tente novamente!', 'OK');
       }
@@ -55,7 +56,6 @@ export class ChecklistComponent implements OnInit {
       resp => {
         if (resp) {
           this.loadAllItems();
-          //this.snackBarService.showSnackBar('Checklist Item criado com sucesso!', 'OK');
         } 
       }
     );
@@ -85,7 +85,6 @@ export class ChecklistComponent implements OnInit {
       .afterClosed().subscribe(resp => {
         if (resp) {
           this.loadAllItems();
-          //this.snackBarService.showSnackBar('Checklist Item editado com sucesso!', 'OK');
         }
       }
     );
