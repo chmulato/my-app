@@ -54,26 +54,15 @@ export class ChecklistFormComponent implements OnInit {
   }
 
   private createForm() {
-    if (this.checklistItem) {
-      this.checklistForm = this.formBuilder.group({
-        completed: [this.checklistItem.completed, Validators.required],
-        description: [this.checklistItem.description, Validators.required],
-        deadline: [new Date(this.checklistItem.deadline), Validators.required],
-        category: [this.checklistItem.category, Validators.required]
-      })
-    }
-    else
-    {
-      this.checklistForm = this.formBuilder.group({
-        completed: [false, Validators.required],
-        description: ['', Validators.required],
-        deadline: [new Date(), Validators.required],
-        category: [null, Validators.required]
-      })
-    }
+    this.checklistForm = this.formBuilder.group(
+      {
+      isCompleted: [ this.checklistItem != null ? this.checklistItem.isCompleted : false, Validators.required ],
+      description: [ this.checklistItem != null ? this.checklistItem.description : '', Validators.required ],
+      deadline: [this.checklistItem != null ? new Date(this.checklistItem.deadline): new Date(), Validators.required ],
+      category: [this.checklistItem != null ? this.checklistItem.category : null, Validators.required ]
+      }
+    );
   }
-
-
 
   save() {
 
@@ -83,13 +72,14 @@ export class ChecklistFormComponent implements OnInit {
       
         let updateableItem = {
           guid: this.checklistItem.guid,
-          completed: this.checklistForm.value['completed'],
-          description: this.checklistForm.value['description'],
+          isCompleted: this.checklistForm.value['isCompleted'],
+          description: this.checklistForm.value['description'],      
           deadline: this.checklistForm.value['deadline'],
+          postedDate: new Date(),
           category: this.checklistForm.value['category']
         };
 
-        this.checklistService.updateChecklistItems(updateableItem as any).subscribe(
+        this.checklistService.updateChecklistItems(updateableItem).subscribe(
           (resp: any) => {
             this.snackbarService.showSnackBar('Item do checklist atualizado com sucesso!','OK');
             this.formCloseEvent.emit(true);

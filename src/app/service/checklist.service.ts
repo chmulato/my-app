@@ -27,4 +27,8 @@ export class ChecklistService {
     return this.httpClient.delete<void>(`${environment.apiBaseEndpointUrl}checklist-items/${guid}`);
   }
 
+  updateIsCompleteStatus(guid: string, status: boolean): Observable<void> {
+    return this.httpClient.patch<void>(`${environment.apiBaseEndpointUrl}checklist-items/${guid}`, { isComplete: status });
+  }
+
 }
