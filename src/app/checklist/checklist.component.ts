@@ -69,8 +69,8 @@ export class ChecklistComponent implements OnInit {
         if (resp) {
           this.checklistService.deleteChecklistItems(checklistItem.guid).subscribe(
             (resp: any) => {
-              this.snackBarService.showSnackBar('Checklist Item apagado com sucesso!', 'OK');
               this.loadAllItems();
+              this.snackBarService.showSnackBar('Checklist Item apagado com sucesso!', 'OK');
             }, (err: any) => {
               this.snackBarService.showSnackBar('Um erro ocorreu ao apagar o item do checklist. Tente novamente!', 'OK');
             }
