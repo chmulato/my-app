@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  apiBaseEndpointUrl: 'http://localhost:8080/v1/api/'
+  production: true,
+  apiBaseEndpointUrl: 'https://www.caracore.com.br:6438/my-api/v1/api/'
 };
 
 /*
